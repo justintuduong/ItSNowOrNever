@@ -21,14 +21,6 @@ app.use(express.static(__dirname + '/public/dist/public'));
 // Sequelize
 // --------------------------------------------------------------------
 
-const Sequelize = require('sequelize');
-
-// Option 1: Passing parameters separately
-const sequelize = new Sequelize('database', 'root', 'root', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
-
 sequelize
   .authenticate()
   .then(() => {

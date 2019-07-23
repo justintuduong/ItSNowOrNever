@@ -8,15 +8,16 @@ import { HttpService } from '../http.service';
 })
 export class UserHomeComponent implements OnInit {
 
+  // tslint:disable-next-line:variable-name
   constructor(private _httpService: HttpService) { }
 
   ngOnInit() {
   }
 
   getAllUserInfo() {
-    this._httpService.getAll().subscribe( data =>{
-      console.log("Login successful!")
-    })
+    this._httpService.getAll().subscribe( data => {
+      console.log('Login successful!');
+    });
   }
 
 
