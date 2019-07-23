@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-user-home',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserHomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _httpService: HttpService) { }
 
   ngOnInit() {
   }
+
+  getAllUserInfo() {
+    this._httpService.getAll().subscribe( data =>{
+      console.log("Login successful!")
+    })
+  }
+
 
 }

@@ -3,11 +3,8 @@ const app = express();
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const mongoose = require('mongoose');
 const flash = require('express-flash');
 
-mongoose.connect('mongodb://localhost/SocialMedia');
-mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/static')));
 app.set('views', path.join(__dirname, '/views'));
@@ -22,13 +19,36 @@ app.use(session({
     }
 }))
 
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('snow', 'root', 'hello', {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
+      }
+  });
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 // --------------------------------------------------------------------
-// Schemas
+// Schemas (can later move to /src/models/{scheme_name.js})
 // --------------------------------------------------------------------
+
+
 
 
 // -------------------------  EventJoinedSchema --------------------------
@@ -206,20 +226,22 @@ app.use(bodyParser.urlencoded({
 // })
 
 
-// app.get('/author/:id', (req, res) => {
-//     Author.findOne({_id: req.params.id}, (err, data) => {
-//         if (err) {
-//             res.json({
-//                 message: "Error",
-//                 error: err
-//             })
-//         } else {
-//             res.json({
-//                 message: "Successfully found author", data: data
-//             })
-//         }
-//     })
-// })
+app.get('/allUsers', (res) => {
+    User.find().then(data, err => {
+        console.log("This works")
+        if (err) {
+            res.json({
+                message: "Error",
+                error: err
+            })
+        } else {
+            res.json({
+                message: "Successfully found author", 
+                data: data
+            })
+        }
+    })
+})
 
 // app.put("/author/:id", (req, res) => {
 //     Author.findOneAndUpdate({_id: req.params.id}, req.body,{runValidators: true, new: true}, (err, data) => {

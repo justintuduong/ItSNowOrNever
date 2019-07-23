@@ -11,15 +11,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
-    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "express-flash": "0.0.2",
-    "express-session": "^1.16.2",
     "mongoose": "^5.6.5",
+    "mysql": "github:mysqljs/mysql",
+    "mysql2": "^1.6.5",
     "path": "^0.12.7",
-    "socket.io": "^2.2.0",
-    "ts": "^0.2.2"
+    "sequelize": "^6.0.0"
   }
 }
