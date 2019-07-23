@@ -15,6 +15,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
 import { EventComponent } from './event/event.component';
 import { EventCreateComponent } from './event-create/event-create.component';
 import { EventCalendarComponent } from './event-calendar/event-calendar.component';
+import { EventShowAllComponent } from './event-show-all/event-show-all.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatNewMessageComponent } from './chat-new-message/chat-new-message.component';
@@ -32,18 +33,21 @@ const routes: Routes = [
             { path: 'suggestion' , component: FriendSuggestionComponent },
             { path: 'search' , component: FriendSearchComponent },
             { path: 'friends' , component: FriendShowAllComponent },
+            { path: '', pathMatch: 'full', redirectTo: 'friends' },
         ]},
         { path: 'home/:id', component: UserHomeComponent},           // User Home page
         { path: 'event/:id', component: EventComponent, children: [
             { path: 'create', component: EventCreateComponent },
             { path: 'calendar', component: EventCalendarComponent },
-            { path: 'details', component: EventDetailsComponent },
-
+            { path: 'showAll', component: EventShowAllComponent, children: [
+                { path: 'details/:id', component: EventDetailsComponent },
+            ]},
+            { path: '', pathMatch: 'full', redirectTo: 'showAll' },
         ]},
         { path: 'chat/:id', component: ChatComponent, children: [
-            { path: 'new_message', component: ChatNewMessageComponent },
-            { path: 'message', component: ChatMessageComponent },
+            { path: 'new_message', component: ChatNewMessageComponent },    // may not need...
         ]},
+        { path: 'message/:id', component: ChatMessageComponent },
     ]},
     { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];

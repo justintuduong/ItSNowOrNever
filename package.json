@@ -1,5 +1,5 @@
 {
-  "name": "FB-Replica",
+  "name": "ItSnowOrNever",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -13,9 +13,14 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "mongoose": "^5.6.5",
     "mysql": "github:mysqljs/mysql",
     "mysql2": "^1.6.5",
+=======
+    "express-flash": "0.0.2",
+    "express-session": "^1.16.2",
+>>>>>>> 527234cf73239375530860d39523d3cdbf449beb
     "path": "^0.12.7",
     "sequelize": "^6.0.0"
   }

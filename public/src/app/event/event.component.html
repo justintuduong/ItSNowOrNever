@@ -1,1 +1,14 @@
-<p>event works!</p>
+<div class="container-fluid pt-3">
+        <p class="text-center h4">{{ header }}</p>
+    </div>
+    <hr>
+
+<div class="container-fluid text-center">
+    <a [routerLink] = "['create']" class="pr-3">Create</a>
+    <a [routerLink] = "['calendar']" class="pr-3">Calendar</a>
+    <a [routerLink] = "['showAll']" class="pr-3">Events</a>
+</div>
+<hr>
+<div class="container-fluid">
+    <router-outlet></router-outlet>
+</div>
