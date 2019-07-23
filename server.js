@@ -1,27 +1,14 @@
 const express = require('express');
 const app = express();
-const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
-const flash = require('express-flash');
-<<<<<<< HEAD
 
-=======
->>>>>>> 527234cf73239375530860d39523d3cdbf449beb
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/static')));
-app.set('views', path.join(__dirname, '/views'));
-app.use(flash());
 app.use(express.static(__dirname + '/public/dist/public'));
-app.use(session({
-    secret: 'GET IN MAH BELLY!',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 60000
-    }
-}))
-<<<<<<< HEAD
+
+// --------------------------------------------------------------------
+// Sequelize
+// --------------------------------------------------------------------
 
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('snow', 'root', 'hello', {
@@ -44,19 +31,14 @@ sequelize
         console.error('Unable to connect to the database:', err);
     });
 
-=======
->>>>>>> 527234cf73239375530860d39523d3cdbf449beb
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-
-<<<<<<< HEAD
 // --------------------------------------------------------------------
 // Schemas (can later move to /src/models/{scheme_name.js})
 // --------------------------------------------------------------------
 
-
-
+const User = sequelize.define("user", {
+    first_name: { type: Sequelize.STRING, allowNull: false },
+    last_name: { type: Sequelize.STRING, allowNull: false }
+    }, { timestamps : true});
 
 // -------------------------  EventJoinedSchema --------------------------
 
@@ -95,57 +77,22 @@ app.use(bodyParser.urlencoded({
 // mongoose.model('event', EventSchema);
 // var Event = mongoose.model('event');
 // module.exports = { Event }
-=======
->>>>>>> 527234cf73239375530860d39523d3cdbf449beb
-
-
-// --------------------------------------------------------------------
-// Sequelize
-// --------------------------------------------------------------------
-
-// const Sequelize = require('sequelize');
-
-// const sequelize = new Sequelize({
-//     dialect: 'sqlite',
-//     storage: 'path/to/database.sqlite'
-// });
-
-// sequelize
-//     .authenticate()
-//     .then(() => {
-//         console.log('Connection has been established successfully.');
-//     })
-//     .catch(err => {
-//         console.error('Unable to connect to the database:', err);
-//     });
 
 // --------------------------------------------------------------------
 // Routes
 // --------------------------------------------------------------------
 
 
-
-<<<<<<< HEAD
-app.get('/allUsers', (res) => {
-    User.find().then(data, err => {
-        console.log("This works")
-        if (err) {
-            res.json({
-                message: "Error",
-                error: err
-            })
-        } else {
-            res.json({
-                message: "Successfully found author", 
-                data: data
-            })
-        }
+app.route('/allUsers', (req, res) => {
+    User.findAll()
+    .then( users => {
+        console.log("got all users")
+        res.json({users})
     })
-})
-=======
->>>>>>> 527234cf73239375530860d39523d3cdbf449beb
-
-
+    .catch( err => {
+        console.log('something went wrong')
+    })
+});
 
 // --------------------------------------------------------------------
 // 

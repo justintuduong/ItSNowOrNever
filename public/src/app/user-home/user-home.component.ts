@@ -7,13 +7,8 @@ import { HttpService } from '../http.service';
   styleUrls: ['./user-home.component.css']
 })
 export class UserHomeComponent implements OnInit {
-<<<<<<< HEAD
 
   constructor(private _httpService: HttpService) { }
-=======
-    header = 'Welcome Name';
-  constructor() { }
->>>>>>> 527234cf73239375530860d39523d3cdbf449beb
 
   ngOnInit() {
   }
