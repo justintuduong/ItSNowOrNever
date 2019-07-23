@@ -1,1 +1,15 @@
-<p>chat works!</p>
+<div class="container-fluid pt-3">
+        <p class="text-center h4">{{ header }}</p>
+    </div>
+    <hr>
+<div class="container-fluid text-center">
+    <p class="p">input search bar</p>
+    <p>suggests names</p>
+    <p>when you hit enter, it should redirect to message page.</p>
+    <p [routerLink] = "['message', 1]">start chat</p>
+</div>
+<hr>
+<div class="container-fluid text-center">
+    <p [routerLink] = "['/user/message/2']">Show all messages received</p>
+</div>
+<router-outlet></router-outlet>

@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./friend.component.css']
 })
 export class FriendComponent implements OnInit {
-
+    header = 'Friends';
   constructor() { }
 
   ngOnInit() {

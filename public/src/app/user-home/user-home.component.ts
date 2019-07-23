@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-home.component.css']
 })
 export class UserHomeComponent implements OnInit {
-
+    header = 'Welcome Name';
   constructor() { }
 
   ngOnInit() {
