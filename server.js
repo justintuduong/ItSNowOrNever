@@ -21,14 +21,22 @@ app.use(express.static(__dirname + '/public/dist/public'));
 // Sequelize
 // --------------------------------------------------------------------
 
+const Sequelize = require('sequelize');
+
+// Option 1: Passing parameters separately
+const sequelize = new Sequelize('database', 'root', 'root', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
+
 sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const User = sequelize.define("user", {
     first_name: { type: Sequelize.STRING, allowNull: false },
@@ -54,30 +62,9 @@ app.all("*", (req, res, next) => {
     res.sendFile(path.resolve("./public/dist/public/index.html"))
 });
 
-// --------------------------------------------------------------------
-// Sequelize
-// --------------------------------------------------------------------
-
-const Sequelize = require('sequelize');
-
-// Option 1: Passing parameters separately
-const sequelize = new Sequelize('database', 'root', 'root', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
-
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
 
 // --------------------------------------------------------------------
-// Routes
+// Restful Routes
 // --------------------------------------------------------------------
 
 app.get('/allUsers', (res) => {
@@ -98,9 +85,8 @@ app.get('/allUsers', (res) => {
 })
 
 // --------------------------------------------------------------------
-// 
+// Redirects, listen, and 404
 // --------------------------------------------------------------------
-
 
 app.all("*", (req, res, next) => {
     res.sendFile(path.resolve("./public/dist/public/index.html"))
