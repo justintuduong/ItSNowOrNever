@@ -27,21 +27,23 @@ app.use(bodyParser.urlencoded({
 // Sequelize
 // --------------------------------------------------------------------
 
-// const Sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 
-// const sequelize = new Sequelize({
-//     dialect: 'sqlite',
-//     storage: 'path/to/database.sqlite'
-// });
+// Option 1: Passing parameters separately
+const sequelize = new Sequelize('database', 'root', 'root', {
+  host: 'localhost',
+  dialect: 'mysql'
+});
 
-// sequelize
-//     .authenticate()
-//     .then(() => {
-//         console.log('Connection has been established successfully.');
-//     })
-//     .catch(err => {
-//         console.error('Unable to connect to the database:', err);
-//     });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 // --------------------------------------------------------------------
 // Routes
