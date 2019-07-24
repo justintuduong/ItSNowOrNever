@@ -36,9 +36,38 @@ sequelize
 // --------------------------------------------------------------------
 
 const User = sequelize.define("user", {
-    first_name: { type: Sequelize.STRING, allowNull: false },
-    last_name: { type: Sequelize.STRING, allowNull: false }
-    }, { timestamps : true});
+    first_name: { 
+        type: Sequelize.STRING, 
+        validate: {
+            allowNull: false,   // will not accept a lack of input
+            len: [2, 45],       // length is between 2 and 45
+            isAlpha: true       // must only contain letters
+        }
+    },
+    last_name: { 
+        type: Sequelize.STRING, 
+        validate: {
+            allowNull: false,
+            len: [2, 45],
+            isAlpha: true
+        },
+    },
+    username: { 
+        type: Sequelize.STRING, 
+        validate: {
+            allowNull: false,
+            len: [2, 45]
+        },
+    },
+    email: { 
+        type: Sequelize.STRING, 
+        validate: {
+            allowNull: false, 
+            isEmail: true,      //must match email format
+            len: [2, 75]
+        },
+    },
+}, { timestamps : true }); //timestamps produce columns == "createdAt" and "updatedAt"
 
 // -------------------------  EventJoinedSchema --------------------------
 
@@ -82,16 +111,18 @@ const User = sequelize.define("user", {
 // Routes
 // --------------------------------------------------------------------
 
+// Get all users
 
-app.route('/allUsers', (req, res) => {
+app.get('/all', (req, res) => {
+    console.log("Got home page .get")
     User.findAll()
-    .then( users => {
-        console.log("got all users")
-        res.json({users})
-    })
-    .catch( err => {
-        console.log('something went wrong')
-    })
+        .then(users => {
+            console.log("got all users")
+            res.json({users})
+        })
+        .catch( err => {
+            console.log('something went wrong')
+        })
 });
 
 // --------------------------------------------------------------------
