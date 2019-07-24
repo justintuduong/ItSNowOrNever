@@ -68,7 +68,6 @@ const User = sequelize.define("user", {
 // Routes
 // --------------------------------------------------------------------
 
-<<<<<<< HEAD
 // Get all users
 
 app.get('/all', (req, res) => {
@@ -81,44 +80,7 @@ app.get('/all', (req, res) => {
         .catch( err => {
             console.log('something went wrong')
         })
-=======
-app.route('/users/all', (req, res) => {
-    User.findAll()
-    .then( users => {
-        console.log("got all users")
-        res.json({users})
-    })
-    .catch( err => {
-        console.log('something went wrong')
-    })
-})
-
-app.all("*", (req, res, next) => {
-    res.sendFile(path.resolve("./public/dist/public/index.html"))
->>>>>>> ebe75af8a6c4668fa4d9f24452e05841667ddbae
 });
-
-
-// --------------------------------------------------------------------
-// Restful Routes
-// --------------------------------------------------------------------
-
-app.get('/allUsers', (res) => {
-    User.find().then(data, err => {
-        console.log("This works")
-        if (err) {
-            res.json({
-                message: "Error",
-                error: err
-            })
-        } else {
-            res.json({
-                message: "Successfully found author", 
-                data: data
-            })
-        }
-    })
-})
 
 // --------------------------------------------------------------------
 // Redirects, listen, and 404
