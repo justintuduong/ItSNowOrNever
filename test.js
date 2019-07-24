@@ -54,7 +54,7 @@ app.listen(8000, function () {
     console.log("listening on port 8000");
 })
 
-
+// old dependencies 7/23/19
 // "axios": "^0.19.0",
 //     "bcrypt": "^3.0.6",
 //     "body-parser": "^1.19.0",

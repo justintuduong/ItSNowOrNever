@@ -2,14 +2,6 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-
-app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public/dist/public'));
-
-// --------------------------------------------------------------------
-// Sequelize
-// --------------------------------------------------------------------
-
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('snow', 'root', 'hello', {
     host: 'localhost',
@@ -22,18 +14,21 @@ const sequelize = new Sequelize('snow', 'root', 'hello', {
       }
   });
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+app.use(bodyParser.json());
+app.use(express.static(__dirname + '/public/dist/public'));
 
 // --------------------------------------------------------------------
-// Schemas (can later move to /src/models/{scheme_name.js})
+// Sequelize
 // --------------------------------------------------------------------
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const User = sequelize.define("user", {
     first_name: { 
@@ -69,48 +64,11 @@ const User = sequelize.define("user", {
     },
 }, { timestamps : true }); //timestamps produce columns == "createdAt" and "updatedAt"
 
-// -------------------------  EventJoinedSchema --------------------------
-
-// var EventJoinedSchema = new mongoose.Schema({
-//     eventTitle: {                             // will be used to pull all messages from one sender
-//         type: String,
-//         required: [true, "Event must have a title"],
-//         minlength: [3, "Title must be at least 3 characters"]
-//     },
-//     eventId: {
-//         type: String,
-//         required: true
-//     },
-//     userId: {
-//         type: String,
-//         required: true
-//     }
-//     eventStartDate: {
-//         type: Date,
-//         required: [true, "Event must have a start date"],
-//         min: new Date(),
-//     },
-//     eventEndDate: {
-//         type: Date,
-//         required: [true, "Event must have an end date"],
-//         min: new Date(),
-//     },
-//     eventDescription: {
-//         type: String,
-//         required: [true, "Password is required!"],
-//         default: ''
-//     },
-// }, {
-//     timestamps: true
-// })
-// mongoose.model('event', EventSchema);
-// var Event = mongoose.model('event');
-// module.exports = { Event }
-
 // --------------------------------------------------------------------
 // Routes
 // --------------------------------------------------------------------
 
+<<<<<<< HEAD
 // Get all users
 
 app.get('/all', (req, res) => {
@@ -123,10 +81,47 @@ app.get('/all', (req, res) => {
         .catch( err => {
             console.log('something went wrong')
         })
+=======
+app.route('/users/all', (req, res) => {
+    User.findAll()
+    .then( users => {
+        console.log("got all users")
+        res.json({users})
+    })
+    .catch( err => {
+        console.log('something went wrong')
+    })
+})
+
+app.all("*", (req, res, next) => {
+    res.sendFile(path.resolve("./public/dist/public/index.html"))
+>>>>>>> ebe75af8a6c4668fa4d9f24452e05841667ddbae
 });
 
+
 // --------------------------------------------------------------------
-// 
+// Restful Routes
+// --------------------------------------------------------------------
+
+app.get('/allUsers', (res) => {
+    User.find().then(data, err => {
+        console.log("This works")
+        if (err) {
+            res.json({
+                message: "Error",
+                error: err
+            })
+        } else {
+            res.json({
+                message: "Successfully found author", 
+                data: data
+            })
+        }
+    })
+})
+
+// --------------------------------------------------------------------
+// Redirects, listen, and 404
 // --------------------------------------------------------------------
 
 app.all("*", (req, res, next) => {
