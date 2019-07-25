@@ -31,13 +31,10 @@ export class LoginComponent implements OnInit {
         if (socialPlatform === 'google') {
             socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
         }
-
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
                 console.log(socialPlatform + ' sign in data : ', userData);
-                console.log(userData.id);
-                // Now sign-in with userData
-                // ...
+                // console.log(userData.id); test to check id. WILL NEED TO ADD SESSION VAR HERE
                 if (userData) {
                     this.goProfile(userData.id);
                 }
