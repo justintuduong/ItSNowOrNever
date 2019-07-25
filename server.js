@@ -70,17 +70,17 @@ const User = sequelize.define("user", {
 
 // Get all users
 
-app.get('/all', (req, res) => {
-    console.log("Got home page .get")
-    User.findAll()
-        .then(users => {
-            console.log("got all users")
-            res.json({users})
-        })
-        .catch( err => {
-            console.log('something went wrong')
-        })
-});
+// app.get('/all', (req, res) => {
+//     console.log("Got home page .get")
+//     User.findAll()
+//         .then(users => {
+//             console.log("got all users")
+//             res.json({users})
+//         })
+//         .catch( err => {
+//             console.log('something went wrong')
+//         })
+// });
 
 // --------------------------------------------------------------------
 // Redirects, listen, and 404
