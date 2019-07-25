@@ -47,21 +47,21 @@ const User = sequelize.define("user", {
             isAlpha: true
         },
     },
-    username: { 
-        type: Sequelize.STRING, 
-        validate: {
-            allowNull: false,
-            len: [2, 45]
-        },
-    },
-    email: { 
-        type: Sequelize.STRING, 
-        validate: {
-            allowNull: false, 
-            isEmail: true,      //must match email format
-            len: [2, 75]
-        },
-    },
+    // username: { 
+    //     type: Sequelize.STRING, 
+    //     validate: {
+    //         allowNull: false,
+    //         len: [2, 45]
+    //     },
+    // },
+    // email: { 
+    //     type: Sequelize.STRING, 
+    //     validate: {
+    //         allowNull: false, 
+    //         isEmail: true,      //must match email format
+    //         len: [2, 75]
+    //     },
+    // },
 }, { timestamps : true }); //timestamps produce columns == "createdAt" and "updatedAt"
 
 // --------------------------------------------------------------------
