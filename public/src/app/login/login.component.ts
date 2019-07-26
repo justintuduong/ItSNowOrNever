@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
     }
 
-    goProfile(id) {
+    goProfile(id, name, email, image, token) {
+        
         this._router.navigate([`/user/home/${id}`]);
     }
     public socialSignIn(socialPlatform: string) {
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
                 console.log(socialPlatform + ' sign in data : ', userData);
                 // console.log(userData.id); test to check id. WILL NEED TO ADD SESSION VAR HERE
                 if (userData) {
-                    this.goProfile(userData.id);
+                    this.goProfile(userData.id, userData.name, userData.email, userData.image, userData.token);
                 }
             }
         );

@@ -1,0 +1,13 @@
+.msg-container {
+    height: 40vh;
+    width: 90vw;
+}
+
+.msg-input-container {
+    max-height: 500px;
+}
+
+.dialogue-container {
+    max-width: 60vw;
+    height: auto;
+}

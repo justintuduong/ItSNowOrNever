@@ -37,7 +37,7 @@ export function getAuthServiceConfigs() {
     const config = new AuthServiceConfig([
         {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider('clientId')
+            provider: new GoogleLoginProvider('883805808528-ojj27c1et260c3p4sbocm3aciiebcklh.apps.googleusercontent.com')
         },
     //   {
     //     id: FacebookLoginProvider.PROVIDER_ID,
