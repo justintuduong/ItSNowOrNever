@@ -14,6 +14,14 @@ export class EventDetailsComponent implements OnInit {
     header = 'Event-Details';
     map;
     marker;
+
+    input;
+    searchBox;
+    markers = [];
+    places;
+    icon;
+    bounds;
+
     image = {
       url: "http://www.myiconfinder.com/uploads/iconsets/256-256-a5485b563efc4511e0cd8bd04ad0fe9e.png",
       scaledSize: new google.maps.Size(35, 35)
@@ -29,7 +37,7 @@ export class EventDetailsComponent implements OnInit {
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -34.397, lng: 150.644},
       zoom: 12,
-      styles: [   // gives the map a 'night mode' appearance
+      styles: [
         {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
         {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
         {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
@@ -110,7 +118,7 @@ export class EventDetailsComponent implements OnInit {
         }
       ]
     });
-    console.log(this.map)
+    // console.log(this.map)
     this.marker = new google.maps.Marker({
       position: this.map.center,
       map: this.map,
@@ -132,6 +140,9 @@ export class EventDetailsComponent implements OnInit {
       // Browser doesn't support Geolocation
       this.handleLocationError(false, this.marker, this.map.getCenter());
     }
+
+  // for searching by location 
+
   }
 
   handleLocationError(browserHasGeolocation, marker, pos) {
@@ -139,7 +150,79 @@ export class EventDetailsComponent implements OnInit {
       console.log(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 
       'Error: Your browser doesn\'t support geolocation.');
   }
+
+  initAutocomplete() {  
+    this.map = new google.maps.Map(document.getElementById('map'), {
+       center: {lat: -33.8688, lng: 151.2195},
+       zoom: 13,
+       mapTypeId: 'roadmap'
+     });
+
+     // Create the search box and link it to the UI element.
+    this.input = document.getElementById('pac-input');
+    this.searchBox = new google.maps.places.SearchBox(this.input);
+     this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.input);
+
+     // Bias the SearchBox results towards current map's viewport.
+     this.map.addListener('bounds_changed', function() {
+       this.searchBox.setBounds(this.map.getBounds());
+     });
+
+    this.markers = [];
+     // Listen for the event fired when the user selects a prediction and retrieve
+     // more details for that place.
+     this.searchBox.addListener('places_changed', function() {
+     this.places = this.searchBox.getPlaces();
+
+       if (this.places.length == 0) {
+         return;
+       }
+
+       // Clear out the old markers.
+       this.markers.forEach(function(marker) {
+         this.marker.setMap(null);
+       });
+       this.markers = [];
+
+       // For each place, get the icon, name and location.
+      this.bounds = new google.maps.LatLngBounds();
+       this.places.forEach(function(place) {
+         if (!this.place.geometry) {
+           console.log("Returned place contains no geometry");
+           return;
+         }
+         this.icon = {
+           url: place.icon,
+           size: new google.maps.Size(71, 71),
+           origin: new google.maps.Point(0, 0),
+           anchor: new google.maps.Point(17, 34),
+           scaledSize: new google.maps.Size(25, 25)
+         };
+
+         // Create a marker for each place.
+         this.markers.push(new google.maps.Marker({
+           map: this.map,
+           icon: this.icon,
+           title: place.name,
+           position: place.geometry.location
+         }));
+
+         if (place.geometry.viewport) {
+           // Only geocodes have viewport.
+           this.bounds.union(this.place.geometry.viewport);
+         } else {
+           this.bounds.extend(this.place.geometry.location);
+         }
+       });
+       this.map.fitBounds(this.bounds);
+     });
+   }
+
+
+
 }
+
+
 
 
 
