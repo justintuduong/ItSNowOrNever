@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import {
     AuthService,
-    // FacebookLoginProvider,
+    FacebookLoginProvider,
     GoogleLoginProvider
 } from 'angular-6-social-login';
 
@@ -24,13 +24,16 @@ export class LoginComponent implements OnInit {
     }
 
     goProfile(id, name, email, image, token) {
-        
+
         this._router.navigate([`/user/home/${id}`]);
     }
     public socialSignIn(socialPlatform: string) {
         let socialPlatformProvider;
         if (socialPlatform === 'google') {
             socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+        }
+        if (socialPlatform === 'facebook') {
+            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
         }
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
