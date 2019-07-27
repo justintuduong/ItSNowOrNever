@@ -29,7 +29,6 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 // OAuth imports
 // --------------------------------------------------------------------------------------------
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
-
 // --------------------------------------------------------------------------------------------
 // Configs for Google OAuth, FB will be added later
 // --------------------------------------------------------------------------------------------
@@ -46,7 +45,6 @@ export function getAuthServiceConfigs() {
         ]);
     return config;
   }
-
 
 @NgModule({
     declarations: [
