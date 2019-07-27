@@ -41,6 +41,7 @@ export class ChatService {
     sendMessage(data) {
         this.socket.emit('message', data);
     }
+
     newMessageReceived() {
         // tslint:disable-next-line:prefer-const
         let observable = new Observable<{ user: string, message: string }>(observer => {

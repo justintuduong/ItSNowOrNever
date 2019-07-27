@@ -97,10 +97,10 @@ var server = app.listen(8000, function () {
     console.log("listening on port 8000");
 })
 
-// // The 404 Route (ALWAYS Keep this as the last route)
-// app.get('*', function (request, response) {
-//     response.send("404")
-// });
+// The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function (request, response) {
+    response.send("404")
+});
 
 // --------------------------------------------------------------------
 // Socket io
@@ -139,7 +139,6 @@ const io = require('socket.io').listen(server);
 
 const cors = require('cors');
 app.use(cors());
-
 
 io.on('connection', (socket) => {
     console.log('Client/socket is connected!');
