@@ -1,5 +1,6 @@
-<div class="pt-5 container shadow-lg p-3 mb-5 bg-white rounded text-center">
-  <p class="h3">Glad to see you again!</p>
+<div class="container shadow-lg p-3 mb-5 bg-white rounded text-center">
+    <p [routerLink]="['/home']" class="float-right text-secondary">X</p>
+  <p class="h3 pt-3 pb-3">Glad to see you again!</p>
   <div class="container-fluid">
 
     <form>
@@ -16,6 +17,9 @@
         <p class="sm text-center">Or sign in with</p>
     </div>
 </div>
-<button (click)="socialSignIn('google')" class="btn btn-danger border text-light">Sign in with Google</button>
+<!-- <img src="" alt="google icon" (click)="socialSignIn('google')"> -->
+<button (click)="socialSignIn('google')" class="btn btn-danger border rounded-circle text-light pt-3 pr-4 pb-3 pl-4">G</button>
   <!-- <button [routerLink]="['/user/home', 1]">Login</button> -->
+<button (click)="socialSignIn('facebook')" class="btn btn-primary border rounded-circle text-light pt-3 pr-4 pb-3 pl-4">F</button>
+
 </div>

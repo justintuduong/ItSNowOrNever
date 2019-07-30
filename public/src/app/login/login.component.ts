@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {AuthService,// FacebookLoginProvider,
-GoogleLoginProvider} from 'angular-6-social-login';
+import {
+    AuthService,
+    FacebookLoginProvider,
+    GoogleLoginProvider
+} from 'angular-6-social-login';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +23,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
     }
 
-    goProfile(id) {
+    goProfile(id, name, email, image, token) {
+
         this._router.navigate([`/user/home/${id}`]);
     }
     public socialSignIn(socialPlatform: string) {
@@ -28,12 +32,15 @@ export class LoginComponent implements OnInit {
         if (socialPlatform === 'google') {
             socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
         }
+        if (socialPlatform === 'facebook') {
+            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+        }
         this.socialAuthService.signIn(socialPlatformProvider).then(
             (userData) => {
                 console.log(socialPlatform + ' sign in data : ', userData);
                 // console.log(userData.id); test to check id. WILL NEED TO ADD SESSION VAR HERE
                 if (userData) {
-                    this.goProfile(userData.id);
+                    this.goProfile(userData.id, userData.name, userData.email, userData.image, userData.token);
                 }
             }
         );

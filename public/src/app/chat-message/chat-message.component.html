@@ -1,2 +1,53 @@
+ <p class="float-right pr-3 pt-2" [routerLink]="['/user/chat/2']">-></p>
+ <p class="h4 pt-5 pb-2 text-center">name of recipient</p>
 
-<p>chat-message works!</p>
+ <!-- -------------------------------------------------------------------------------------------------------------- -->
+ <!-- <div class="form-group">
+     <form>
+         <label for="username">Username</label>
+         <input type="hidden" [(ngModel)]="user" class="form-control" id="username" value="Justin">
+     </form>
+ </div> -->
+ <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+ <!-- <div class="form-group">
+     <form>
+         <label for="roomInput">Room</label>
+         <input name="roomInput" id="roomInput" type="hidden" [(ngModel)]="room" class="form-control"
+           value="lobby">
+           <option value="Lobby">Lobby</option>
+           <option value="Hall">Hall</option>
+           <option value="Deluxe">Deluxe</option>
+     </form>
+ </div> -->
+ <!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- 
+ <div class="row">
+   <button class="btn btn-primary" (click)="join()">Join</button>
+   <button class="btn btn-primary" (click)="leave()">Leave</button>
+
+ </div> -->
+ <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+ <hr>
+ <div class="container overflow-auto msg-container mb-4">
+   <div class="container wrapper m-1" *ngFor="let item of messageArray">
+     <p>{{ item.user }} : {{ item.message }}</p>
+   </div>
+ </div>
+ <div class="container-fluid">
+   <form (submit)="sendMessage()" (keydown)="keyDownFunction($event)">
+     <div class="form-row">
+       <div class="col-10">
+         <textarea name="messageText" type="text" [(ngModel)]= "messageText"
+           class="form-control border border-dark rounded text-center msg-input-container d-inline-block" rows="3"
+           placeholder="Type here!"></textarea>
+       </div>
+       <div class="col">
+         <button class="btn btn-primary rounded-circle pl-3 pr-3 pt-2 pb-2 mt-3">></button>
+         <!-- <button (click)="sendMessage()" class="btn btn-primary rounded-circle pl-3 pr-3 pt-2 pb-2 mt-3">></button> -->
+       </div>
+     </div>
+   </form>
+ </div>

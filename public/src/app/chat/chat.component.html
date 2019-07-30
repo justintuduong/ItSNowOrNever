@@ -3,13 +3,13 @@
     </div>
     <hr>
 <div class="container-fluid text-center">
-    <p class="p">input search bar</p>
-    <p>suggests names</p>
-    <p>when you hit enter, it should redirect to message page.</p>
-    <p [routerLink] = "['message', 1]">start chat</p>
+    <form> <!-- will need to add event here -->
+        <input name="search_friend" type="text" class="form-control rounded-pill text-center" placeholder="Let's chat with...">
+        <button [routerLink] = "['message', 1]" class="btn btn-primary rounded-pill mt-2">Start chat</button>
+    </form>
 </div>
 <hr>
 <div class="container-fluid text-center">
-    <p [routerLink] = "['/user/message/2']">Show all messages received</p>
+    <p [routerLink] = "['/message/1']">Show all messages received</p>
 </div>
 <router-outlet></router-outlet>

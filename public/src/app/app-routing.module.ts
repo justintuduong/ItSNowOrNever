@@ -47,8 +47,8 @@ const routes: Routes = [
         { path: 'chat/:id', component: ChatComponent, children: [
             { path: 'new_message', component: ChatNewMessageComponent },    // may not need...
         ]},
-        { path: 'message/:id', component: ChatMessageComponent },
     ]},
+    { path: 'message/:id', component: ChatMessageComponent },
     { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];
 
