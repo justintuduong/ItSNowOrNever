@@ -34,7 +34,7 @@ const User = sequelize.define("user", {
     first_name: {
         type: Sequelize.STRING,
         validate: {
-            allowNull: false, // will not accept a lack of input
+            // allowNull: false, // will not accept a lack of input
             len: [2, 45], // length is between 2 and 45
             isAlpha: true // must only contain letters
         }
@@ -47,21 +47,21 @@ const User = sequelize.define("user", {
             isAlpha: true
         },
     },
-    // username: { 
-    //     type: Sequelize.STRING, 
-    //     validate: {
-    //         allowNull: false,
-    //         len: [2, 45]
-    //     },
-    // },
-    // email: { 
-    //     type: Sequelize.STRING, 
-    //     validate: {
-    //         allowNull: false, 
-    //         isEmail: true,      //must match email format
-    //         len: [2, 75]
-    //     },
-    // },
+    email: { 
+        type: Sequelize.STRING, 
+        validate: {
+            // allowNull: false, 
+            isEmail: true,      //must match email format
+            len: [2, 75]
+        },
+    },
+    password: { 
+        type: Sequelize.STRING, 
+        validate: {
+            // allowNull: false,
+            len: [2, 45]
+        },
+    },
 }, {
     timestamps: true
 }); //timestamps produce columns == "createdAt" and "updatedAt"
@@ -88,9 +88,9 @@ app.get('/all', (req, res) => {
 app.post('/create', (req, res) => {
     console.log('server.js')
     console.log(req.body) //checking form data
-    User.create({ firstName: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
-    .then(users => {
-        console.log(" user auto-generated ID:", data.id);
+    User.create({ first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
+    .then(User => {
+        console.log(" user auto-generated ID:", User.id);
     });
 })
 
