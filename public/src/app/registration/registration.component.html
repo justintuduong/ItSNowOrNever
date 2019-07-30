@@ -1,6 +1,30 @@
 <div class="container pt-5 container shadow-lg p-3 mb-5 bg-white rounded text-center">
-    REGISTRATION WORKS!
-    <p class="h2">Form</p>
-    <button [routerLink] = "['/user/home', 1]">Sign up</button>
+  <a class="float-right" [routerLink]="['/home']">X</a>
+  REGISTRATION WORKS!
+  <form (submit)="onSubmit()">
+        {{ newUser | json}}
+        {{ userError | json}}
+    <div class="form-group text-center">
+      <input type="text" class="form-control rounded-pill text-center" placeholder="First Name" name="first_name" [(ngModel)]="newUser.first_name">
+      <!-- {{ error.first_name}} -->
+    </div>
+    <div class="form-group text-center">
+      <input type="text" class="form-control rounded-pill text-center" placeholder="Last Name" name="last_name" [(ngModel)]="newUser.last_name">
+      <!-- {{ error.last_name}} -->
+    </div>
+    <div class="form-group text-center">
+      <input type="email" class="form-control rounded-pill text-center" placeholder="Email" name="email" [(ngModel)]="newUser.email">
+      <!-- {{ error.email}} -->
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control rounded-pill text-center" placeholder="Password" name='password' [(ngModel)]="newUser.password">
+      <!-- {{ error.password}} -->
+    </div>
+    <div class="form-group">
+      <input type="password" class="form-control rounded-pill text-center" placeholder="Confirm Password"
+        name="confirm_password">
+      <!-- {{ error.confirm_password}} -->
+    </div>
+    <button type="submit" class="btn btn-primary rounded-pill pl-5 pr-5">Sign up</button>
+  </form>
 </div>
-    

@@ -51,7 +51,7 @@ const User = sequelize.define("user", {
     last_name: {
         type: Sequelize.STRING,
         validate: {
-            allowNull: false,
+            // allowNull: [false, "Must be at least 2 character"],
             len: [2, 45],
             isAlpha: true
         },
@@ -81,17 +81,29 @@ const User = sequelize.define("user", {
 
 // Get all users
 
-// app.get('/all', (req, res) => {
-//     console.log("Got home page .get")
-//     User.findAll()
-//         .then(users => {
-//             console.log("got all users")
-//             res.json({users})
-//         })
-//         .catch( err => {
-//             console.log('something went wrong')
-//         })
-// });
+app.get('/all', (req, res) => {
+    console.log("Got home page .get")
+    User.findAll()
+        .then(users => {
+            console.log("got all users")
+            res.json({users})
+        })
+        .catch( err => {
+            console.log('something went wrong')
+        })
+});
+
+// create a user
+app.post('/create', (req, res) => {
+    console.log('server.js')
+    console.log(req.body) //checking form data
+    User.create({ firstName: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
+    .then(users => {
+        console.log(" user auto-generated ID:", data.id);
+    });
+})
+
+
 
 // --------------------------------------------------------------------
 // Redirects, listen, and 404
