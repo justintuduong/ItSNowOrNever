@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -16,6 +17,14 @@ const sequelize = new Sequelize('snow', 'root', 'hello', {
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public/dist/public'));
+app.use(session({
+    secret: 'GET IN MAH BELLY!',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 60000
+    }
+}))
 
 // --------------------------------------------------------------------
 // Sequelize

@@ -30,21 +30,22 @@ import { ChatMessageComponent } from './chat-message/chat-message.component';
 // --------------------------------------------------------------------------------------------
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angular-6-social-login';
 // --------------------------------------------------------------------------------------------
-// Configs for Google OAuth, FB will be added later
+// Configs for Google OAuth and FB OAuth
 // --------------------------------------------------------------------------------------------
+
 export function getAuthServiceConfigs() {
     const config = new AuthServiceConfig([
         {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider('client_id')
         },
-      {
-        id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider('app_id')
-      },
-        ]);
+        {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('app_id')
+        },
+    ]);
     return config;
-  }
+}
 
 @NgModule({
     declarations: [
