@@ -34,7 +34,7 @@ const User = sequelize.define("user", {
     first_name: { 
         type: Sequelize.STRING, 
         validate: {
-            allowNull: false,   // will not accept a lack of input
+            // allowNull: [false, "Must be at least 2 character"],   // will not accept a lack of input
             len: [2, 45],       // length is between 2 and 45
             isAlpha: true       // must only contain letters
         }
@@ -42,26 +42,26 @@ const User = sequelize.define("user", {
     last_name: { 
         type: Sequelize.STRING, 
         validate: {
-            allowNull: false,
+            // allowNull: [false, "Must be at least 2 character"],
             len: [2, 45],
             isAlpha: true
         },
     },
-    // username: { 
-    //     type: Sequelize.STRING, 
-    //     validate: {
-    //         allowNull: false,
-    //         len: [2, 45]
-    //     },
-    // },
-    // email: { 
-    //     type: Sequelize.STRING, 
-    //     validate: {
-    //         allowNull: false, 
-    //         isEmail: true,      //must match email format
-    //         len: [2, 75]
-    //     },
-    // },
+    email: { 
+        type: Sequelize.STRING, 
+        validate: {
+            // allowNull:[false, "Not a valid email"],
+            isEmail: true,      //must match email format
+            len: [2, 75]
+        },
+    },
+    password: { 
+        type: Sequelize.STRING, 
+        validate: {
+            // allowNull:[false, "Must be at least 8 characters long"],     
+            len: [8, 255]
+        },
+    },
 }, { timestamps : true }); //timestamps produce columns == "createdAt" and "updatedAt"
 
 // --------------------------------------------------------------------
@@ -70,17 +70,32 @@ const User = sequelize.define("user", {
 
 // Get all users
 
-// app.get('/all', (req, res) => {
-//     console.log("Got home page .get")
-//     User.findAll()
-//         .then(users => {
-//             console.log("got all users")
-//             res.json({users})
-//         })
-//         .catch( err => {
-//             console.log('something went wrong')
-//         })
-// });
+app.get('/all', (req, res) => {
+    console.log("Got home page .get")
+    User.findAll()
+        .then(users => {
+            console.log("got all users")
+            res.json({users})
+        })
+        .catch( err => {
+            console.log('something went wrong')
+        })
+});
+
+// create a user
+app.post('/create', (req, res) => {
+    console.log('server.js')
+    console.log(req.body) //checking form data
+    User.create({ firstName: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
+    .then(users => {
+        console.log(" user auto-generated ID:", data.id);
+    });
+    .catch( err => {
+        console.log('something went wrong')
+    });
+})
+
+
 
 // --------------------------------------------------------------------
 // Redirects, listen, and 404

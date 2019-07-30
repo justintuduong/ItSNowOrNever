@@ -12,4 +12,8 @@ export class HttpService {
     return this._http.get('/all'); //correlates with the routes established in the server.js
   }
 
+  createUser(user){
+    return this._http.post('/create', user)
+  }
+
 }

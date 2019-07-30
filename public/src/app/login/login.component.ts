@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {
-    AuthService,
-    // FacebookLoginProvider,
-    GoogleLoginProvider
-} from 'angular-6-social-login';
+import {AuthService,// FacebookLoginProvider,
+GoogleLoginProvider} from 'angular-6-social-login';
 
 @Component({
     selector: 'app-login',
