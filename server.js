@@ -95,11 +95,12 @@ app.get('/all', (req, res) => {
 
 // create a user
 app.post('/create', (req, res) => {
+    console.log("I am working");
     console.log('server.js')
     console.log(req.body) //checking form data
     User.create({ first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
     .then(User => {
-        console.log(" user auto-generated ID:", User.id);
+        console.log("user auto-generated ID:", User.id);
     });
 })
 
