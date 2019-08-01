@@ -64,6 +64,6 @@ export class RegistrationComponent implements OnInit {
         })
     }
     goHome() {
-        this._router.navigate(['/home/:id']);
+        this._router.navigate([`/user/home/:id`]);
     }
 }

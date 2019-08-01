@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('snow', 'root', 'hello', {
     host: 'localhost',
@@ -33,8 +34,8 @@ sequelize
 const User = sequelize.define("user", {
     first_name: {
         type: Sequelize.STRING,
+        allowNull: false, // will not accept a lack of input
         validate: {
-            // allowNull: false, // will not accept a lack of input
             len: [2, 45], // length is between 2 and 45
             isAlpha: true // must only contain letters
         }
@@ -42,23 +43,24 @@ const User = sequelize.define("user", {
     last_name: {
         type: Sequelize.STRING,
         validate: {
-            // allowNull: [false, "Must be at least 2 character"],
+            allowNull: [false, "Must be at least 2 character"],
             len: [2, 45],
             isAlpha: true
         },
     },
     email: { 
         type: Sequelize.STRING, 
+        allowNull: false, 
         validate: {
-            // allowNull: false, 
             isEmail: true,      //must match email format
-            len: [2, 75]
+            len: [2, 75],
+            msg:"Is not a valid email",
         },
     },
     password: { 
         type: Sequelize.STRING, 
         validate: {
-            // allowNull: false,
+            allowNull: false,
             len: [2, 45]
         },
     },
@@ -85,13 +87,60 @@ app.get('/all', (req, res) => {
 });
 
 // create a user
+const BCRYPT_SALT_ROUNDS = 12;
+
 app.post('/create', (req, res) => {
-    console.log('server.js')
+    console.log('server.js data from form')
     console.log(req.body) //checking form data
-    User.create({ first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
-    .then(User => {
-        console.log(" user auto-generated ID:", User.id);
-    });
+       const data = {
+            first_name: req.body.first_name, last_name: req.body.last_name, 
+            email: req.body.email, 
+            password: req.body.password
+    };
+    if(data.password === ''){
+        res.json('password is required')
+    }
+    User.findOne({
+        where: {
+            email: data.email
+        }
+    })
+    .then (user => {
+        if (user !=null){
+            console.log('Email already taken');
+            res.json('Email already taken')
+            req.flash('email', "Email already exists!")
+            res.redirect("/")
+        } else{
+            bcrypt.hash(data.password, BCRYPT_SALT_ROUNDS)
+            .then(function(password) {
+                console.log(password);
+                User.create({ 
+                    first_name: req.body.first_name, last_name: req.body.last_name, 
+                    email: req.body.email, 
+                    password: req.body.password })
+            
+                .then(User => {
+                    console.log(" user auto-generated ID:", User.id);
+                });
+            })
+        }
+    })
+    .catch(err => {
+        console.log('problem comminicating with the db');
+        res.status(500).json(err);
+    })
+    // User.create({ 
+    //     first_name: req.body.first_name, last_name: req.body.last_name, 
+    //     email: req.body.email, 
+    //     password: req.body.password })
+
+    // .then(User => {
+    //     console.log(" user auto-generated ID:", User.id);
+    // });
+    // .catch(err => {
+    //     console.log('couldent create user')
+    // })
 })
 
 
