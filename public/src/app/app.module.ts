@@ -4,6 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 // --------------------------------------------------------------------------------------------
+// Session and Local Storage
+// --------------------------------------------------------------------------------------------
+import { AngularWebStorageModule } from 'angular-web-storage';
+
+// --------------------------------------------------------------------------------------------
 // Component imports
 // --------------------------------------------------------------------------------------------
 import { AppComponent } from './app.component';
@@ -75,6 +80,7 @@ export function getAuthServiceConfigs() {
         FormsModule,
         HttpClientModule,
         SocialLoginModule,
+        AngularWebStorageModule
     ],
     providers: [{
         provide: AuthServiceConfig,

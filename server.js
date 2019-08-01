@@ -56,16 +56,20 @@ const User = sequelize.define("user", {
             isAlpha: true
         },
     },
-    email: { 
-        type: Sequelize.STRING, 
+    email: {
+        type: Sequelize.STRING,
         validate: {
             // allowNull: false, 
-            isEmail: true,      //must match email format
+            isEmail: true, //must match email format
             len: [2, 75]
         },
     },
-    password: { 
-        type: Sequelize.STRING, 
+    image_url: {
+        type: Sequelize.STRING,
+            defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
+    },
+    password: {
+        type: Sequelize.STRING,
         validate: {
             // allowNull: false,
             len: [2, 45]
@@ -80,27 +84,87 @@ const User = sequelize.define("user", {
 // --------------------------------------------------------------------
 
 // Get all users
-
 app.get('/all', (req, res) => {
-    console.log("Got home page .get")
     User.findAll()
         .then(users => {
-            console.log("got all users")
-            res.json({users})
+            console.log("Successfully found all users")
+            res.json({
+                users
+            })
         })
-        .catch( err => {
+        .catch(err => {
             console.log('something went wrong')
+        });
+});
+
+// find one user
+app.get('/findOne/:id', (req, res) => {
+    User.findAll({
+            where: {
+                id: req.params.id
+            }
         })
+        .then(users => {
+            console.log("Succesfully found user")
+            res.json({
+                users
+            })
+        })
+        .catch(err => {
+            console.log('something went wrong')
+        });
 });
 
 // create a user
 app.post('/create', (req, res) => {
-    console.log("I am working");
-    console.log('server.js')
     console.log(req.body) //checking form data
-    User.create({ first_name: req.body.first_name, last_name: req.body.last_name, email: req.body.email, password: req.body.password })
-    .then(User => {
-        console.log("user auto-generated ID:", User.id);
+    User.create({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            password: req.body.password
+        })
+        .then(User => {
+            console.log("user auto-generated ID:", User.id);
+            req.session.name = User.first_name;
+            req.session.id = User.id;
+            req.session.active = true;
+        });
+})
+
+// update user
+app.put('/update', (req, res) => {
+    console.log(req.body);
+    User.create({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        image_url: req.body.image_url,
+    })
+    // .then(User => {
+    //     console.log("user auto-generated ID:", User.id);
+    //     req.session.name = User.first_name;
+    //     req.session.id = User.id;
+    //     req.session.active = true;
+    // });
+})
+
+// delete a user
+app.delete('/delete/:id', (req, res) => {
+    let userId = req.params.id
+    User.destroy({
+        where: {
+            id: userId
+        }
+        .then(users => {
+            console.log("Successfully deleted user")
+            res.json({
+                users
+            })
+        })
+        .catch(err => {
+            console.log('something went wrong')
+        })
     });
 })
 

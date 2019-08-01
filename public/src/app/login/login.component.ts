@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { LocalStorageService, SessionStorageService, LocalStorage, SessionStorage } from 'angular-web-storage';
+
 import {
     AuthService,
     FacebookLoginProvider,
@@ -19,7 +21,9 @@ export class LoginComponent implements OnInit {
                 // tslint:disable-next-line:variable-name
                 private _route: ActivatedRoute,
                 // tslint:disable-next-line:variable-name
-                private _router: Router) { }
+                private _router: Router,
+                public session: SessionStorageService
+                ) { }
     ngOnInit() {
     }
 

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-
+// --------------------------------------------------------------------------------------------
+// Component imports
+// --------------------------------------------------------------------------------------------
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
@@ -21,6 +23,9 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatNewMessageComponent } from './chat-new-message/chat-new-message.component';
 import { ChatMessageComponent } from './chat-message/chat-message.component';
 
+// --------------------------------------------------------------------------------------------
+// Angular Routes
+// --------------------------------------------------------------------------------------------
 
 const routes: Routes = [
     { path: 'home', component: HomeComponent, children: [           // Home Main component
@@ -51,6 +56,10 @@ const routes: Routes = [
     { path: 'message/:id', component: ChatMessageComponent },
     { path: '', pathMatch: 'full', redirectTo: '/home' },
 ];
+
+// --------------------------------------------------------------------------------------------
+// NgModule
+// --------------------------------------------------------------------------------------------
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

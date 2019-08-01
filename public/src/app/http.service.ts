@@ -5,6 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
+    createUser(newUser: { first_name: string; last_name: string; email: string; password: string; }) {
+        throw new Error("Method not implemented.");
+    }
 
   constructor(private _http: HttpClient) { }
 
