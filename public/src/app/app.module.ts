@@ -6,8 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 // --------------------------------------------------------------------------------------------
 // Session and Local Storage
 // --------------------------------------------------------------------------------------------
-import { AngularWebStorageModule } from 'angular-web-storage';
-
+// import { AngularWebStorageModule } from 'angular-web-storage';
 // --------------------------------------------------------------------------------------------
 // Component imports
 // --------------------------------------------------------------------------------------------
@@ -80,7 +79,6 @@ export function getAuthServiceConfigs() {
         FormsModule,
         HttpClientModule,
         SocialLoginModule,
-        AngularWebStorageModule
     ],
     providers: [{
         provide: AuthServiceConfig,

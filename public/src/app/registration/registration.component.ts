@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit {
     ngOnInit() {
     }
 
-    goHome(id) {
+    goHome() {
         this._router.navigate(['/user/home/:id']);
     }
 
@@ -65,9 +65,8 @@ export class RegistrationComponent implements OnInit {
                 //     email: '',
                 //     password: ''
                 // };
-                console.log(this.newUser.id);
-                req.session.name = newUser.first_name;
-                this.goHome(id);
+                console.log();
+                this.goHome();
             }
         });
     }

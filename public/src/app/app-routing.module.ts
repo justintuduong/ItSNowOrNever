@@ -38,7 +38,7 @@ const routes: Routes = [
             { path: 'suggestion' , component: FriendSuggestionComponent },
             { path: 'search' , component: FriendSearchComponent },
             { path: 'friends' , component: FriendShowAllComponent },
-            { path: '', pathMatch: 'full', redirectTo: 'friends' },
+            { path: '', pathMatch: 'full', redirectTo: 'suggestion' },
         ]},
         { path: 'home/:id', component: UserHomeComponent},           // User Home page
         { path: 'event/:id', component: EventComponent, children: [

@@ -17,14 +17,14 @@ const sequelize = new Sequelize('snow', 'root', 'hello', {
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public/dist/public'));
-app.use(session({
-    secret: 'GET IN MAH BELLY!',
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        maxAge: 60000
-    }
-}))
+// app.use(session({
+//     secret: 'GET IN MAH BELLY!',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         maxAge: 60000
+//     }
+// }))
 
 // --------------------------------------------------------------------
 // Sequelize
@@ -38,6 +38,10 @@ sequelize
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
+
+// const Friend = sequelize.define("friend", {
+
+// })
 
 const User = sequelize.define("user", {
     first_name: {
@@ -66,7 +70,7 @@ const User = sequelize.define("user", {
     },
     image_url: {
         type: Sequelize.STRING,
-            defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
+        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
     },
     password: {
         type: Sequelize.STRING,
@@ -84,7 +88,7 @@ const User = sequelize.define("user", {
 // --------------------------------------------------------------------
 
 // Get all users
-app.get('/all', (req, res) => {
+app.get('/findAll', (req, res) => {
     User.findAll()
         .then(users => {
             console.log("Successfully found all users")
@@ -99,7 +103,7 @@ app.get('/all', (req, res) => {
 
 // find one user
 app.get('/findOne/:id', (req, res) => {
-    User.findAll({
+    User.findOne({
             where: {
                 id: req.params.id
             }
@@ -115,38 +119,35 @@ app.get('/findOne/:id', (req, res) => {
         });
 });
 
+app.get('/chatFindOne/:name', (req, res) => {
+    console.log('testing');
+    User.findOne({
+            where: {
+                id: 8
+            }
+        })
+        .then(users => {
+            console.log("Succesfully found user")
+            res.json({
+                users
+            })
+        })
+        .catch(err => {
+            console.log('something went wrong')
+        });
+});
+
+
+
 // create a user
 app.post('/create', (req, res) => {
     console.log(req.body) //checking form data
     User.create({
-            first_name: req.body.first_name,
-            last_name: req.body.last_name,
-            email: req.body.email,
-            password: req.body.password
-        })
-        .then(User => {
-            console.log("user auto-generated ID:", User.id);
-            req.session.name = User.first_name;
-            req.session.id = User.id;
-            req.session.active = true;
-        });
-})
-
-// update user
-app.put('/update', (req, res) => {
-    console.log(req.body);
-    User.create({
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
-        image_url: req.body.image_url,
+        password: req.body.password
     })
-    // .then(User => {
-    //     console.log("user auto-generated ID:", User.id);
-    //     req.session.name = User.first_name;
-    //     req.session.id = User.id;
-    //     req.session.active = true;
-    // });
 })
 
 // delete a user
@@ -157,13 +158,13 @@ app.delete('/delete/:id', (req, res) => {
             id: userId
         }
         .then(users => {
-            console.log("Successfully deleted user")
+            console.log("Succesfully found user");
             res.json({
                 users
             })
         })
         .catch(err => {
-            console.log('something went wrong')
+            console.log('something went wrong');
         })
     });
 })
