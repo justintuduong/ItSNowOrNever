@@ -15,7 +15,7 @@ export class FriendSuggestionComponent implements OnInit {
         this.getAllUserInfo();
     }
     getAllUserInfo() {
-        this._httpService.getAll().subscribe(data => {
+        this._httpService.findAll().subscribe(data => {
             console.log('Successfully got all users: ', data);
             this.users = data['users'];
         });

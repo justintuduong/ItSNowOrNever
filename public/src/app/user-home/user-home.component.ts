@@ -4,28 +4,28 @@ import { HttpService } from '../http.service';
 
 
 @Component({
-  selector: 'app-user-home',
-  templateUrl: './user-home.component.html',
-  styleUrls: ['./user-home.component.css']
+    selector: 'app-user-home',
+    templateUrl: './user-home.component.html',
+    styleUrls: ['./user-home.component.css']
 })
 export class UserHomeComponent implements OnInit {
+    header = 'Welcome, name';
 
+    users: any;
 
-  users: any;
+    // tslint:disable-next-line:variable-name
+    constructor(private _httpService: HttpService) { }
 
-  // tslint:disable-next-line:variable-name
-  constructor(private _httpService: HttpService) { }
+    ngOnInit() {
+        this.getAllUserInfo();
+    }
 
-  ngOnInit() {
-    this.getAllUserInfo();
-  }
-
-  getAllUserInfo() {
-    this._httpService.getAll().subscribe( data => {
-      console.log('Successfully got all users: ', data);
-      this.users = data['users']
-    });
-  }
+    getAllUserInfo() {
+        this._httpService.findAll().subscribe(data => {
+            console.log('Successfully got all users: ', data);
+            this.users = data['users']
+        });
+    }
 
 
 }
