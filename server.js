@@ -2,10 +2,13 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('snow', 'root', 'hello', {
     host: 'localhost',
     dialect: 'mysql',
+
+
     pool: {
         max: 5,
         min: 0,
@@ -13,6 +16,21 @@ const sequelize = new Sequelize('snow', 'root', 'hello', {
         idle: 10000
     }
 });
+//data base trial
+// var db = require("./models");
+// const db = {};
+
+// db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+
+// db.friend = require('../model/friend.model.js')(sequelize, Sequelize);
+// db.user = require('../model/user.model.js')(sequelize, Sequelize);
+
+// db.friend.belongsToMany(db.user, { as: 'Friends', through: 'friends_list', foreignKey: 'friendId', otherKey: 'userId'});
+
+// db.user.belongsToMany(db.friend, { as: 'user', through: 'friends_list', foreignKey: 'userId', otherKey: 'friendId'});
+
+// module.exports = db;
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public/dist/public'));
@@ -33,12 +51,12 @@ sequelize
 // const Friend = sequelize.define("friend", {
 
 // })
-
+// module.exports = (sequelize, Sequelize) => {
 const User = sequelize.define("user", {
     first_name: {
         type: Sequelize.STRING,
+        // allowNull: false, // will not accept a lack of input
         validate: {
-            // allowNull: false, // will not accept a lack of input
             len: [2, 45], // length is between 2 and 45
             isAlpha: true // must only contain letters
         }
@@ -46,8 +64,8 @@ const User = sequelize.define("user", {
     last_name: {
         type: Sequelize.STRING,
         validate: {
-            // allowNull: [false, "Must be at least 2 character"],
-            len: [2, 45],
+            // notNull: [true, "Must be at least 2 character"],
+            len: [2, 45, "hahaha you have an error"],
             isAlpha: true
         },
     },
@@ -59,10 +77,10 @@ const User = sequelize.define("user", {
             len: [2, 75]
         },
     },
-    image_url: {
-        type: Sequelize.STRING,
-        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
-    },
+    // image_url: {
+    //     type: Sequelize.STRING,
+    //     defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
+    // },
     password: {
         type: Sequelize.STRING,
         validate: {
@@ -73,7 +91,8 @@ const User = sequelize.define("user", {
 }, {
     timestamps: true
 }); //timestamps produce columns == "createdAt" and "updatedAt"
-
+// return User;
+// }
 // --------------------------------------------------------------------
 // Routes
 // --------------------------------------------------------------------
@@ -131,15 +150,72 @@ app.get('/findOneByName/:friend', (req, res) => { //searches by first name for c
 
 
 // create a user
+//trying to create with BCRYPT
+// const BCRYPT_SALT_ROUNDS = 12;
+
+// app.post('/create', (req, res) => {
+//     console.log('server.js data from form')
+//     console.log(req.body) //checking form data
+//        const data = {
+//             first_name: req.body.first_name, last_name: req.body.last_name, 
+//             email: req.body.email, 
+//             password: req.body.password
+//     };
+//     if(data.password === ''){
+//         res.json('password is required')
+//     }
+//     User.findOne({
+//         where: {
+//             email: data.email
+//         }
+//     })
+//     .then (user => {
+//         if (user !=null){
+//             console.log('Email already taken');
+//             res.json('Email already taken')
+//             req.flash('email', "Email already exists!")
+//             res.redirect("/")
+//         } else{
+//             bcrypt.hash(data.password, BCRYPT_SALT_ROUNDS)
+//             .then(function(password) {
+//                 console.log(password);
+//                 User.create({ 
+//                     first_name: req.body.first_name, last_name: req.body.last_name, 
+//                     email: req.body.email, 
+//                     password: req.body.password })
+
+//                 .then(User => {
+//                     console.log(" user auto-generated ID:", User.id);
+//                 });
+//             })
+//         }
+//     })
+//     .catch(err => {
+//         console.log('problem comminicating with the db');
+//         res.status(500).json(err);
+//     })
 app.post('/create', (req, res) => {
-    console.log(req.body) //checking form data
     User.create({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password
-    })
-})
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            email: req.body.email,
+            password: req.body.password
+        })
+
+        .then(data => {
+            console.log(" user auto-generated ID:", data.id);
+            // res.json(user.id);
+            res.json({
+                data
+            })
+        })
+        .catch(err => {
+            console.log('couldent create user')
+            console.log(err);
+        })
+});
+
+// })
 
 // delete a user
 app.delete('/delete/:id', (req, res) => {
@@ -148,15 +224,15 @@ app.delete('/delete/:id', (req, res) => {
         where: {
             id: userId
         }
-        .then(data => {
-            console.log("Succesfully found user");
-            res.json({
-                data
-            })
-        })
-        .catch(err => {
-            console.log('something went wrong');
-        })
+        // .then(users => {
+        //     console.log("Succesfully found user");
+        //     res.json({
+        //         users
+        //     })
+        // })
+        // .catch(err => {
+        //     console.log('something went wrong');
+        // })
     });
 })
 

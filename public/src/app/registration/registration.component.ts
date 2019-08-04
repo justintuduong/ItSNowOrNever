@@ -30,10 +30,6 @@ export class RegistrationComponent implements OnInit {
     ngOnInit() {
     }
 
-    goHome() {
-        this._router.navigate(['/user/home/:id']);
-    }
-
     onSubmit() {
         this._httpService.createUser(this.newUser).subscribe(data => {
             console.log(data);
@@ -68,6 +64,9 @@ export class RegistrationComponent implements OnInit {
                 console.log();
                 this.goHome();
             }
-        });
+        })
+    }
+    goHome() {
+        this._router.navigate([`/user/home/:id`]);
     }
 }
