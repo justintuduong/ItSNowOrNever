@@ -1,3 +1,17 @@
-<div class="container-fluid text-center">
-    <p>Show all other users</p>
+<div class="container-fluid text-center overflow-auto">
+    <!-- <p *ngFor="let user of users">{{ user.first_name }} {{ user.last_name }}</p> -->
+    <!-- {{ users | json }} -->
+    <div class="container-fluid mt-4" *ngFor="let user of users">
+        <div class="row">
+            <div class="col">
+                <img src="{{ user.image_url }}" alt="" class="border border-dark profile-pic mb-3">
+            </div>
+            <div class="col">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+            <div class="col">
+                <a href="">Add</a>
+            </div>
+        </div>
+    </div>
 </div>

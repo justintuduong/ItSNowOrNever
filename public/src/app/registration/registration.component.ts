@@ -9,28 +9,30 @@ import { Router } from '@angular/router';
     styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-
+    // tslint:disable-next-line:semicolon
     newUser = {
-        'first_name': '',
-        'last_name': '',
-        'email': '',
-        'password': ''
-    }
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+    };
     // userError = {
     //     'first_name': '',
     //     'last_name': '',
     //     'email': '',
     //     'password': ''
     // };
+    // tslint:disable-next-line:variable-name
     constructor(private _httpService: HttpService,
-        private _router: Router) { }
+                // tslint:disable-next-line:variable-name
+                private _router: Router) { }
 
     ngOnInit() {
     }
 
     onSubmit() {
         this._httpService.createUser(this.newUser).subscribe(data => {
-            console.log(data)
+            console.log(data);
             // this.userError = {
             //     'first_name': '',
             //     'last_name': '',
@@ -52,13 +54,14 @@ export class RegistrationComponent implements OnInit {
             //         this.userError['password'] = data['error']['errors']['password']['message']
             //     }
             {
-                console.log('success, added a new user to db')
-                this.newUser = {
-                    'first_name': '',
-                    'last_name': '',
-                    'email': '',
-                    'password': ''
-                }
+                console.log('success, added a new user to db');
+                // this.newUser = {
+                //     first_name: '',
+                //     last_name: '',
+                //     email: '',
+                //     password: ''
+                // };
+                console.log();
                 this.goHome();
             }
         })

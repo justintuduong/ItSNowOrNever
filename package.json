@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "JSA",
   "license": "ISC",
   "dependencies": {
     "@angular/forms": "^8.1.3",
@@ -17,6 +17,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "googleapis": "^39.2.0",
     "mysql": "github:mysqljs/mysql",
     "mysql2": "^1.6.5",
     "path": "^0.12.7",
