@@ -121,16 +121,16 @@ app.get('/findAll', (req, res) => {
 });
 
 // find one user
-app.get('/findOne/:id', (req, res) => {
+app.get('/findOneById/:id', (req, res) => {
     User.findOne({
             where: {
                 id: req.params.id
             }
         })
-        .then(users => {
+        .then(data => {
             console.log("Succesfully found user")
             res.json({
-                users
+                data
             })
         })
         .catch(err => {
@@ -138,17 +138,18 @@ app.get('/findOne/:id', (req, res) => {
         });
 });
 
-app.get('/chatFindOne/:name', (req, res) => {
-    console.log('testing');
+app.get('/findOneByName/:friend', (req, res) => { //searches by first name for chat
+    console.log(req.params.friend);
     User.findOne({
             where: {
-                id: 8
+                first_name: req.params.friend
             }
         })
-        .then(users => {
+        .then(data => {
+            console.log(data);
             console.log("Succesfully found user")
             res.json({
-                users
+                data
             })
         })
         .catch(err => {

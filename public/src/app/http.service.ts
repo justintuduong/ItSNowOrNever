@@ -5,18 +5,21 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class HttpService {
-    findAll: any;
+    // findAll: any;
 
   // tslint:disable-next-line:variable-name
   constructor(private _http: HttpClient) { }
 
-  getAll() {  // correlates with what will be passed into the home/hom.component.ts
+  findAll() {  // correlates with what will be passed into the home/hom.component.ts
     return this._http.get('/findAll'); // correlates with the routes established in the server.js
   }
 
-  chatFindOne(friend) {
-      console.log(friend);
-      return this._http.get('/chatFindOne', friend);
+  findOneById(id) {
+    return this._http.get(`/findOneById/${id}`);
+  }
+
+  findOneByName(friend) {
+      return this._http.get(`/findOneByName/${friend}`);
   }
 
   createUser(user) {
