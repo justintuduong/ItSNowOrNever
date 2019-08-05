@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-// const session = require('express-session');
+
 const bodyParser = require('body-parser');
 const path = require('path');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('snow', 'root', 'hello', {
     host: 'localhost',
@@ -35,14 +35,7 @@ const sequelize = new Sequelize('snow', 'root', 'hello', {
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public/dist/public'));
-// app.use(session({
-//     secret: 'GET IN MAH BELLY!',
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie: {
-//         maxAge: 60000
-//     }
-// }))
+
 
 // --------------------------------------------------------------------
 // Sequelize
@@ -88,7 +81,7 @@ const User = sequelize.define("user", {
     },
     image_url: {
         type: Sequelize.STRING,
-        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
+        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jp4',
     },
     password: {
         type: Sequelize.STRING,
@@ -99,44 +92,9 @@ const User = sequelize.define("user", {
     },
 }, {
     timestamps: true
+
 }); 
-// const Event = sequelize.define("event", {
-//     title: {
-//         type: Sequelize.STRING,
-//         validate: {
-//             len: [2, 45], // length is between 2 and 45
-//             isAlpha: true // must only contain letters
-//         }
-//     },
-//     location: {
-//         type: Sequelize.STRING,
-//         validate: {
-//             isAlpha: true
-//         },
-//     },
-//     created_by: {
-//         type: Sequelize.STRING,
-//         validate: {
-//             allowNull: false, 
-//             len: [2, 45], // length is between 2 and 45
-//             isAlpha: true // must only contain letters
-//         },
-//     },
-//     start_date: {
-//         type: Sequelize.DATETIME,
-//         validate: {
-//             allowNull: false,
-//         },
-//     },
-//     end_date: {
-//         type: Sequelize.DATETIME,
-//         validate: {
-//             allowNull: false,
-//         },
-//     },
-// }, {
-//     timestamps: true
-// });
+
 // --------------------------------------------------------------------
 // Routes
 // --------------------------------------------------------------------
@@ -151,7 +109,7 @@ app.get('/findAll', (req, res) => {
             })
         })
         .catch(err => {
-            console.log('something went wrong')
+            console.log('couldent find all users')
         });
 });
 
@@ -169,7 +127,8 @@ app.get('/findOneById/:id', (req, res) => {
             })
         })
         .catch(err => {
-            console.log('something went wrong')
+            console.log(err);
+            console.log('Error finding user')
         });
 });
 
@@ -192,53 +151,6 @@ app.get('/findOneByName/:friend', (req, res) => { //searches by first name for c
         });
 });
 
-
-
-// create a user
-//trying to create with BCRYPT
-// const BCRYPT_SALT_ROUNDS = 12;
-
-// app.post('/create', (req, res) => {
-//     console.log('server.js data from form')
-//     console.log(req.body) //checking form data
-//        const data = {
-//             first_name: req.body.first_name, last_name: req.body.last_name, 
-//             email: req.body.email, 
-//             password: req.body.password
-//     };
-//     if(data.password === ''){
-//         res.json('password is required')
-//     }
-//     User.findOne({
-//         where: {
-//             email: data.email
-//         }
-//     })
-//     .then (user => {
-//         if (user !=null){
-//             console.log('Email already taken');
-//             res.json('Email already taken')
-//             req.flash('email', "Email already exists!")
-//             res.redirect("/")
-//         } else{
-//             bcrypt.hash(data.password, BCRYPT_SALT_ROUNDS)
-//             .then(function(password) {
-//                 console.log(password);
-//                 User.create({ 
-//                     first_name: req.body.first_name, last_name: req.body.last_name, 
-//                     email: req.body.email, 
-//                     password: req.body.password })
-
-//                 .then(User => {
-//                     console.log(" user auto-generated ID:", User.id);
-//                 });
-//             })
-//         }
-//     })
-//     .catch(err => {
-//         console.log('problem comminicating with the db');
-//         res.status(500).json(err);
-//     })
 app.post('/create', (req, res) => {
     User.create({
             first_name: req.body.first_name,
@@ -269,6 +181,7 @@ app.delete('/delete/:id', (req, res) => {
         where: {
             id: userId
         }
+        // error with the .then function.
         // .then(users => {
         //     console.log("Succesfully found user");
         //     res.json({
