@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
+
 
 @Component({
   selector: 'app-event-show-all',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventShowAllComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _httpService: HttpService) { }
 
   ngOnInit() {
   }

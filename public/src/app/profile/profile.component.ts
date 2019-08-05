@@ -9,6 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
     header = 'First Name Last Name';
+    
     userId;
     user: any;
 
