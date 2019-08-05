@@ -1,1 +1,33 @@
-<p>event-create works!</p>
+<div class="container-fluid">
+
+<div id="map" style="width:100%;height:400px"></div>
+
+<h3>Would you like to create an event?</h3>
+<h5>Please enter the information for your event below!</h5>
+
+    <form>
+        <label>What would you like to call your event?</label>
+        <div class="form-group">
+          <input type="text" class="form-control rounded-pill text-center" placeholder="Event Title">
+        </div>
+        <div class="form-group">
+            <label>Where will this event be held? </label>
+          <input type="text" class="form-control rounded-pill text-center" placeholder="Location">
+        </div>
+        <div class="form-group">
+            <label>Who created this event?</label>
+          <input type="name" class="form-control rounded-pill text-center" placeholder="Created By...">
+          <small class="text-muted">Your name goes here!</small>
+        </div>
+        <div class="form-group ">
+            <label>When will it start?</label>
+          <input class="form-control rounded-pill" type="datetime-local">
+        </div>
+        <div class="form-group ">
+            <label>When will it end?</label>
+          <input class="form-control rounded-pill" type="datetime-local">
+        </div>
+        <button type="submit" class="btn btn-primary rounded-pill pl-5 pr-5">Create Event</button>
+      </form>
+
+</div> <!-- end of overflow -->
