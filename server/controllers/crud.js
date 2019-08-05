@@ -56,6 +56,17 @@ module.exports = {
             email: req.body.email,
             password: req.body.password
         })
+        .then(data => {
+            console.log(" user auto-generated ID:", data.id);
+            // res.json(user.id);
+            res.json({
+                data
+            })
+        })
+        .catch(err => {
+            console.log('couldent create user')
+            console.log(err);
+        })
     },
     deleteUser: function (req, res) {
         let userId = req.params.id
