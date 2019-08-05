@@ -25,7 +25,6 @@ export class EventCreateComponent implements OnInit {
         scaledSize: new google.maps.Size(35, 35)
     };
 
-    // tslint:disable-next-line:variable-name
     constructor(private _httpService: HttpService) { }
 
     ngOnInit() {
@@ -217,7 +216,34 @@ export class EventCreateComponent implements OnInit {
             this.map.fitBounds(this.bounds);
         });
     }
+    // ====================== add event
 
+    // onSubmit() {
+    //   this._httpService.createEvent(this.event, this.eventId).subscribe( data => {
+    //     this.eventError = {  
+    //       "title": "",
+    //       "location": "",
+    //       "created_by": "",
+    //       "start_date": "",
+    //       "end_date": "",
+    //     }
+    //     if(data['message'] === 'Error') {
+    //       console.log("There was an error!")
+    //       if(data['err']['errors']['customer']) {
+    //         this.eventError['customer'] = data['err']['errors']['customer']['message']; 
+    //       }
+    //       if(data['err']['errors']['stars']) {
+    //         this.eventError['stars'] = data['err']['errors']['stars']['message']; 
+    //       } 
+    //       if(data['err']['errors']['description']) {
+    //         this.eventError['description'] = data['err']['errors']['description']['message']; 
+    //       } 
+    //     } else {
+    //       console.log("Created Review: ", data)
+    //       this.goToEvent();     
+    //     }
+    //   })
+    // }
 
 
 

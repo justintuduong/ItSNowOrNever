@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const session = require('express-session');
+// const session = require('express-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
@@ -99,9 +99,44 @@ const User = sequelize.define("user", {
     },
 }, {
     timestamps: true
-}); //timestamps produce columns == "createdAt" and "updatedAt"
-// return User;
-// }
+}); 
+// const Event = sequelize.define("event", {
+//     title: {
+//         type: Sequelize.STRING,
+//         validate: {
+//             len: [2, 45], // length is between 2 and 45
+//             isAlpha: true // must only contain letters
+//         }
+//     },
+//     location: {
+//         type: Sequelize.STRING,
+//         validate: {
+//             isAlpha: true
+//         },
+//     },
+//     created_by: {
+//         type: Sequelize.STRING,
+//         validate: {
+//             allowNull: false, 
+//             len: [2, 45], // length is between 2 and 45
+//             isAlpha: true // must only contain letters
+//         },
+//     },
+//     start_date: {
+//         type: Sequelize.DATETIME,
+//         validate: {
+//             allowNull: false,
+//         },
+//     },
+//     end_date: {
+//         type: Sequelize.DATETIME,
+//         validate: {
+//             allowNull: false,
+//         },
+//     },
+// }, {
+//     timestamps: true
+// });
 // --------------------------------------------------------------------
 // Routes
 // --------------------------------------------------------------------
