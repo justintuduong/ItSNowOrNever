@@ -81,7 +81,7 @@ const User = sequelize.define("user", {
     },
     image_url: {
         type: Sequelize.STRING,
-        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jp4',
+        defaultValue: 'https://clearhillscounty.ab.ca/wp-content/uploads/2016/11/photo-not-available-250x300.jpg',
     },
     password: {
         type: Sequelize.STRING,
