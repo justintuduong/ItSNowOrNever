@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params,Router } from '@angular/router';
+import { userInfo } from 'os';
 
 
 @Component({
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent implements OnInit {
     // tslint:disable-next-line:semicolon
+    userId : any;
+    user: any;
+
     newUser = {
         first_name: '',
         last_name: '',
@@ -23,16 +27,30 @@ export class RegistrationComponent implements OnInit {
     //     'password': ''
     // };
     // tslint:disable-next-line:variable-name
-    constructor(private _httpService: HttpService,
+    constructor(private _httpService: HttpService, private route: ActivatedRoute,
                 // tslint:disable-next-line:variable-name
                 private _router: Router) { }
 
     ngOnInit() {
     }
 
-    onSubmit() {
-        this._httpService.createUser(this.newUser).subscribe(data => {
+    findOne() {
+        this._httpService.findOneById(this.userId).subscribe(data => {
             console.log(data);
+            this.user = data['data'];
+            console.log('hello from the other side');
+            console.log(this.user);
+        });
+    }
+
+    onSubmit() {
+        this._httpService.createUser(this.newUser,this.userId).subscribe(data => {
+            console.log(data);
+            this.route.params.subscribe((params: Params) => {
+                console.log(params['id'])
+                this.userId = params['id']
+            });
+            this.findOne();
             // this.userError = {
             //     'first_name': '',
             //     'last_name': '',
@@ -66,7 +84,8 @@ export class RegistrationComponent implements OnInit {
             }
         })
     }
+    
     goHome() {
-        this._router.navigate([`/user/home/:id`]);
+        this._router.navigate([`/user/home/`+ this.userId]);
     }
 }

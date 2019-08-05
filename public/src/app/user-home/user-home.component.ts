@@ -17,7 +17,7 @@ export class UserHomeComponent implements OnInit {
     user:any;
 
     // tslint:disable-next-line:variable-name
-    constructor(private _httpService: HttpService, private route: ActivatedRoute, private _router: Router) { }
+    constructor(private _httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {

@@ -1,5 +1,7 @@
 <div class="container pt-5 container shadow-lg p-3 mb-5 bg-white rounded text-center">
   <a class="float-right" [routerLink]="['/home']">X</a>
+  
+  <input id="userId" type="hidden" name="userId" value="{{ userId }}" > 
   <form (submit)="onSubmit()">
         {{ newUser | json}}
         {{ userError | json}}

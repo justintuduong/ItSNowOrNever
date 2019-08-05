@@ -24,8 +24,8 @@ export class HttpService {
       return this._http.get(`/findOneByName/${friend}`);
   }
 
-  createUser(user) {
-    return this._http.post('/create', user);
+  createUser(user, userId) {
+    return this._http.post('/create', user, userId);
   }
 
 }

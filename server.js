@@ -55,6 +55,9 @@ sequelize
 // })
 // module.exports = (sequelize, Sequelize) => {
 const User = sequelize.define("user", {
+    // userId: {
+    //     type:integer 
+    // }
     first_name: {
         type: Sequelize.STRING,
         // allowNull: false, // will not accept a lack of input
