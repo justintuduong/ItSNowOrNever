@@ -1,9 +1,15 @@
 <div class="container-fluid pt-3">
-        <p class="text-center h4">{{ user.first_name }} {{ user.last_name }}</p>
+
+        <!-- <p class="text-center h4">Welcome, Kaysee!</p> -->
+
+        <p class="text-center h4">Welcome, {{ user.first_name }}!</p>
+
     </div>
     <hr>
-<p>user-home works!</p>
+<!-- <p>user-home works!</p> -->
 <div class="container overflow-auto component-content-container">
-    <p *ngFor="let user of users">{{ user.first_name }} {{ user.last_name }}</p>
+
+    <!-- <p *ngFor="let user of users">{{ user.first_name }} {{ user.last_name }}</p> -->
+
     <!-- {{ users | json }} -->
 </div>

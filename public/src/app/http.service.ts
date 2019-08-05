@@ -11,7 +11,7 @@ export class HttpService {
   constructor(private _http: HttpClient) { }
 
   findAll() {  // correlates with what will be passed into the home/hom.component.ts
-    console.log("finding all the users")
+    console.log('finding all the users');
     return this._http.get('/findAll'); // correlates with the routes established in the server.js
   }
 

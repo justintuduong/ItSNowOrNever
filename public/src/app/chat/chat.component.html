@@ -4,7 +4,7 @@
     <hr>
 <div class="container-fluid text-center">
     <form (submit)='findOne()'> <!-- will need to add event here -->
-        {{ findFriend | json}}
+        <!-- {{ findFriend | json}} -->
 
         <input name="friend" [(ngModel)]="findFriend.friend" type="text" class="form-control rounded-pill text-center" placeholder="Let's chat with...">
         <button class="btn btn-primary rounded-pill mt-2">Start chat</button>

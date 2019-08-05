@@ -11,17 +11,17 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class UserHomeComponent implements OnInit {
     header = 'Welcome, name';
-    
+
     userId;
     users: any;
-    user:any;
+    user: any;
 
     // tslint:disable-next-line:variable-name
     constructor(private _httpService: HttpService, private route: ActivatedRoute, private router: Router) { }
 
     ngOnInit() {
         this.route.params.subscribe((params: Params) => {
-            console.log(params['id'])
+            console.log(params['id']);
             this.userId = params['id']
         });
         this.findOne(),
@@ -43,6 +43,4 @@ export class UserHomeComponent implements OnInit {
             this.users = data['users']
         });
     }
-
-
 }
