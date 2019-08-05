@@ -1,13 +1,17 @@
 <div class="container-fluid pt-3">
-        <p class="text-center h4">{{ header }}</p>
+        <p class="text-center h4">{{ user.first_name }} {{ user.last_name }}</p>
     </div>
     <hr>
 <div class="container-fluid">
   <div class="container text-center">
-        <img src="smiley.gif" alt="Smiley face" height="42" width="42">
+        
+        <!-- <img src="https://www.elfontheshelf.com/sites/default/files/styles/blog_lead_trimmed/public/banner-winter-activities.png?itok=ReJhNBsn" alt="Smiley face" height="42" width="42"> -->
     <!-- <p>banner image goes here</p> -->
-    <p>Profile pic</p>
-    <p>first name last name</p>
+    <div>
+        <img class="profile-pic" src="{{ user.image_url }}" alt="stock image" >
+    </div>
+    <!-- <p>Profile pic</p> -->
+    <!-- <p>{{ user.first_name }} {{ user.last_name }}</p> -->
     <p>San Francisco, CA</p>
   </div>
 </div>
@@ -17,6 +21,14 @@
   <a [routerLink] = "['user/chat/, 2']" class="pr-2">Message</a>
   <a class="pr-2">Comment</a> need to build component
 </div> -->
-<div class="container text-center pt-3">
-    Show posts
+<div class="container text-center pt-3 ">
+    <div class="post rounded text-left">
+        <small>{{ user.first_name }} {{ user.last_name }}</small>
+        <p>Hey Guys! I'm thinking of doing a trip to the snow sometime in January! Who's free to meet up?
+        </p>
+    </div>
+    <div class="post rounded">
+        <p>If anyone is at sierra at tahoe already, what is the snow condition? Looking good out there? 
+        </p>
+    </div>
 </div>
